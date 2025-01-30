@@ -1,67 +1,77 @@
-<html>
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
-    <title>Date Widget Notion</title> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saudação Diária</title>
     <style>
-      #lbl {
-        font-family: sans-serif;
-        font-size: 14pt; 
-        color: palevioletred;
-        padding: 2px; 
-        border: 0px solid #fffff;
-        justify-content: left;
-        line-height: 1.5;
-        font-weight: bold;
-        flex-direction: row;
-        display: block;
-        max-width: 100%;
-        max-height: 50px; 
-        overflow: hidden; 
-      }
-
-      #container {
-        display: flex;
-        align-items: flex-start;
-      }
-
-      #date{
-          font-size: 12pt; 
-          font-weight: bold;
-      }
-
-      body{
-          background-color: #ffffff;
-      }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: left;
+            max-width: 100%;
+            max-height: 50px;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        #mensagem {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-left: 12px;
+            margin-right: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        #dataCompleta {
+            font-size: 1.4em;
+            margin-left: 12px;
+            margin-right: 0;
+            margin-top: 12px;
+            margin-bottom: 0;
+        }
     </style>
 </head>
 <body>
-    <div id="lbl"></div>
+    <h1 id="dataCompleta"></h1>
+    <p id="mensagem"></p>
+
+    <script>
+        function atualizarDataSaudacao() {
+            const diasSemana = ["domingo", "segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado"];
+            const mesesAno = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
+            
+            const hoje = new Date();
+            const diaSemana = diasSemana[hoje.getDay()];
+            const dia = hoje.getDate();
+            const mes = mesesAno[hoje.getMonth()];
+            const ano = hoje.getFullYear();
+            const dataFormatada = `${diaSemana}, ${dia} de ${mes} de ${ano}`;
+            
+            document.getElementById("dataCompleta").innerText = dataFormatada;
+            
+            const horas = hoje.getHours();
+            let saudacao = "";
+            let corFundo = "";
+            let corTexto = "";
+
+            if (horas >= 6 && horas < 12) {
+                saudacao = "bom dia, bárbara!";
+                corFundo = "#DF7093";
+                corTexto = "#fff";
+            } else if (horas >= 12 && horas < 18) {
+                saudacao = "boa tarde, bárbara!";
+                corFundo = "#DF7093";
+                corTexto = "#fff";
+            } else {
+                saudacao = "boa noite, bárbara!";
+                corFundo = "#DF7093";
+                corTexto = "#fff";
+            }
+            
+            document.getElementById("mensagem").innerText = saudacao;
+            document.body.style.backgroundColor = corFundo;
+            document.body.style.color = corTexto;
+        }
+        
+        atualizarDataSaudacao();
+    </script>
 </body>
-
-<script>
-    var weekday = ["domingo", "segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado"];
-
-    const monthNames = ["janeiro", "fevereiro", "março", "abril", "maio", "junho",
-      "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"
-    ];
-
-    var today = new Date();
-    var hrs = today.getHours();
-    var dayOfWeek = weekday[today.getDay()];
-    var date = `${dayOfWeek}, ${today.getDate()} de ${monthNames[today.getMonth()]} de ${today.getFullYear()}`;
-
-    var greet;
-    if (hrs < 12)
-        greet = 'bom dia, Bárbara.';
-    else if (hrs < 17)
-        greet = 'boa tarde, Bárbara.';
-    else
-        greet = 'boa noite, Bárbara.';
-
-    document.getElementById('lbl').innerHTML = `
-        <div class="container">
-          <div id="date">${date}</div>
-          <div class="greeting">${greet}</div>
-        </div>
-    `;
-</script> 
 </html>
